@@ -18,7 +18,7 @@ const calculateAge = function () {
     if (age >= 0) {
       resultEl.innerText = `You are ${age} ${
         age > 1 ? "years" : "year"
-      } ${month} month and ${date} days old`;
+      } ${Math.abs(month)} month and ${Math.abs(date)} days old`;
     } else {
       resultEl.innerText = `Please enter the valid birthdate!`;
     }
