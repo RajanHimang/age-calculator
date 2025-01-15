@@ -18,7 +18,9 @@ const calculateAge = function () {
     if (age >= 0) {
       resultEl.innerText = `You are ${age} ${
         age > 1 ? "years" : "year"
-      } ${Math.abs(month)} month and ${Math.abs(date)} days old`;
+      } ${month} ${month > 1 ? "months" : "month"} and ${date} ${
+        date > 1 ? "days" : "day"
+      } old`;
     } else {
       resultEl.innerText = `Please enter the valid birthdate!`;
     }
@@ -45,7 +47,19 @@ const getAge = function (birthdayValue) {
   let age = curYear - year;
   let ageMonth = curMonth - month;
   let ageDate = curDate - date;
-  if (curMonth < month || (curMonth === month && curDate < date)) age--;
+  if (curMonth < month || (curMonth === 0 && curDate < 0)) {
+    age--;
+    ageMonth += 12;
+  }
+
+  if (ageDate < 0) {
+    const daysInLastMonth = new Date(
+      currentDate.getFullYear(),
+      currentDate.getMonth(),
+      0
+    ).getDate();
+    ageDate += daysInLastMonth;
+  }
 
   return { age, ageMonth, ageDate };
 };
